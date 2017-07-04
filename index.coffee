@@ -18,21 +18,20 @@ text-align: center
     display: inline-block
     margin: 0 1em
     color: #707880
-
-.icon
-    display: inline-block
-    padding: 0 .6em
-    margin-right: .2em
-    color: #1d1f21
 """
 
 render: (stdout) ->
     s = '<div id="bar">'
     JSON.parse(stdout).forEach (v) ->
         s += """
-        <div class="seg">
-            <div class="icon" style="background-color:#{v.color}">#{v.icon}</div>
-            #{v.content}
+        <div class="seg" style="color:#{v.color}">
+            #{v.icon}&nbsp;#{v.content}
         </div>
         """
+    s += """
+    <div class="seg" id="btn">hoge</div>
+    """
     s += '</div>'
+
+afterRender: (domEl) ->
+    $(domEl).find('#btn').on 'click', => @run "open http://www.google.com/"
